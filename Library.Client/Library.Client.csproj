@@ -6,94 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="my-app\src\app\+dashboard\+forms\Book\book-edit.component.ts" />
-    <None Remove="my-app\src\app\+dashboard\+forms\Book\book-form.component.ts" />
-    <None Remove="my-app\src\app\+dashboard\+forms\Genre\genre-edit.component.ts" />
-    <None Remove="my-app\src\app\+dashboard\+forms\Genre\genre-form.component.ts" />
-    <None Remove="my-app\src\app\+dashboard\+forms\Genre\genre.component.ts" />
-    <None Remove="my-app\src\app\app.component.ts" />
-    <None Remove="my-app\src\app\app.resolver.ts" />
-    <None Remove="my-app\src\app\app.routing.ts" />
-    <None Remove="my-app\src\app\app.service.ts" />
-    <None Remove="my-app\src\app\core\core.module.ts" />
-    <None Remove="my-app\src\app\core\models\book.ts" />
-    <None Remove="my-app\src\app\core\models\genre.ts" />
-    <None Remove="my-app\src\app\core\models\mutable.book.ts" />
-    <None Remove="my-app\src\app\core\models\mutable.genre.ts" />
-    <None Remove="my-app\src\app\core\repository\IRepository.ts" />
-    <None Remove="my-app\src\app\core\repository\repository.ts" />
-    <None Remove="my-app\src\app\core\services\book.service.ts" />
-    <None Remove="my-app\src\app\core\services\genre.service.ts" />
-    <None Remove="my-app\src\app\core\services\repository.service.ts" />
-    <None Remove="my-app\src\app\core\settings\settings.ts" />
-    <None Remove="my-app\src\app\core\store\actions\genre.actions.ts" />
-    <None Remove="my-app\src\app\core\store\book.actions.ts" />
-    <None Remove="my-app\src\app\core\store\reducers\book.reducers.ts" />
-    <None Remove="my-app\src\app\core\store\reducers\genre.reducers.ts" />
-    <None Remove="my-app\src\app\core\store\store.reducers.ts" />
-    <None Remove="my-app\src\app\core\store\store.ts" />
-    <None Remove="my-app\src\app\+dashboard\dashboard.module.ts" />
-    <None Remove="my-app\src\app\+dashboard\dashboard.routing.ts" />
-    <None Remove="my-app\src\app\+dashboard\+forms\Book\book.component.ts" />
-    <None Remove="my-app\src\app\+dashboard\+forms\forms.component.ts" />
-    <None Remove="my-app\src\app\+dashboard\+forms\forms.module.ts" />
-    <None Remove="my-app\src\app\+dashboard\+forms\forms.routing.ts" />
-    <None Remove="my-app\src\app\shared\layout\app-layouts\main-layout.component.ts" />
-    <None Remove="my-app\src\app\shared\layout\footer\footer.component.ts" />
-    <None Remove="my-app\src\app\shared\layout\header\header.component.ts" />
-    <None Remove="my-app\src\app\shared\layout\layout.module.ts" />
-    <None Remove="my-app\src\app\shared\layout\left-menu\left-menu.component.ts" />
-    <None Remove="my-app\src\vendor.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="my-app\src\app\+dashboard\+forms\BookHistory\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\Book\book-edit.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\Book\book-form.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\Genre\genre-edit.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\Genre\genre-form.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\Genre\genre.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\app.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\app.resolver.ts" />
-    <TypeScriptCompile Include="my-app\src\app\app.routing.ts" />
-    <TypeScriptCompile Include="my-app\src\app\app.service.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\core.module.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\models\book.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\models\genre.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\models\mutable.book.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\models\mutable.genre.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\repository\IRepository.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\repository\repository.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\services\book.service.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\services\genre.service.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\settings\settings.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\store\actions\book.actions.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\store\actions\genre.actions.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\store\reducers\book.reducers.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\store\reducers\genre.reducers.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\store\store.reducers.ts" />
-    <TypeScriptCompile Include="my-app\src\app\core\store\store.ts" />
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\dashboard.module.ts" />
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\dashboard.routing.ts" />
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\Book\book.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\forms.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\forms.module.ts" />
-    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\forms.routing.ts" />
-    <TypeScriptCompile Include="my-app\src\app\shared\layout\app-layouts\main-layout.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\shared\layout\footer\footer.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\shared\layout\header\header.component.ts" />
-    <TypeScriptCompile Include="my-app\src\app\shared\layout\layout.module.ts" />
-    <TypeScriptCompile Include="my-app\src\app\shared\layout\left-menu\left-menu.component.ts" />
-    <TypeScriptCompile Include="my-app\src\vendor.ts" />
   </ItemGroup>
 
 </Project>
