@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DataServices\BookHistoryService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Library.DataProcessing.Contracts\Library.DataProcessing.Contracts.csproj" />
+    <ProjectReference Include="..\Library.DataStorage.Contracts\Library.DataStorage.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
