@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-blue">
+  <a class="navbar-brand" href="#">Library</a>
+  <button class="navbar-toggler" (click)="collapse=!collapse" type="button" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse" (click)="collapse=true" [hidden]="collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dashboard/forms/books" routerLinkActive="active">Books <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Books History</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dashboard/forms/genres" routerLinkActive="active">Genres</a>
+      </li>
+    </ul>
+  </div>
+</nav>
