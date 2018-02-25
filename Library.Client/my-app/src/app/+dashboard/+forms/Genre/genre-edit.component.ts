@@ -13,8 +13,6 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'genre-edit-widget',
   templateUrl: './genre-edit.component.html',
-  styles: [require('./genre-edit.component.css').toString()],
-
 })
 export class GenreEditComponent implements OnInit, OnDestroy {
 

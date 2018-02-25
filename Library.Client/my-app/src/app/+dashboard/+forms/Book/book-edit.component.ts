@@ -13,8 +13,6 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'book-edit-widget',
   templateUrl: './book-edit.component.html',
- // styles: [require('./book-edit.component.css').toString()],
- 
 })
 export class BookEditComponent implements OnInit, OnDestroy {
 

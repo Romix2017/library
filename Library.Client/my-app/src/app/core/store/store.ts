@@ -11,6 +11,7 @@ const logger = Logger.createLogger({
     return {
       books: state.books,
       genres: state.genres,
+      booksHistory: state.booksHistory
     }
   }
 });
@@ -20,7 +21,8 @@ const store = createStoreWithMiddleware(
   storeReducers,
   {
     books: List([]),
-    genres: List([])
+    genres: List([]),
+    booksHistory: List([])
   });
 
 
