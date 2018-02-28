@@ -10,6 +10,9 @@ import { BookFormComponent } from './Book/book-form.component';
 import { GenreFormComponent } from './Genre/genre-form.component';
 import { GenreComponent } from './Genre/genre.component';
 import { GenreEditComponent } from './Genre/genre-edit.component';
+import { BookHistoryComponent } from './BookHistory/book-history.component';
+import { BookHistoryEditComponent } from './BookHistory/book-history-edit.component';
+import { BookHistoryFormComponent } from './BookHistory/book-history-form.component';
 
 @NgModule({
   imports: [
@@ -24,7 +27,10 @@ import { GenreEditComponent } from './Genre/genre-edit.component';
     BookFormComponent,
     GenreFormComponent,
     GenreComponent,
-    GenreEditComponent
+    GenreEditComponent,
+    BookHistoryComponent,
+    BookHistoryEditComponent,
+    BookHistoryFormComponent
   ],
   providers: [],
 })

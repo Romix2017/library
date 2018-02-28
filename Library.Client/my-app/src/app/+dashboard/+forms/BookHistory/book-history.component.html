@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>#</th>
+    <th>Book Id</th>
+    <th>Date Given</th>
+    <th>Date Returned</th>
+    <th>User Id</th>
+    <th>Remove</th>
+  </tr>
+  <tr *ngFor="let bookHistory of store.getState().booksHistory; let i = index" (click)="updateItem($event)" attr.data-itemid="{{bookHistory.Id}}">
+    <td>{{i + 1}}</td>
+    <td>{{bookHistory.BookId}}</td>
+    <td>{{bookHistory.DateGiven}}</td>
+    <td>{{bookHistory.DateReturned}}</td>
+    <td>{{bookHistory.UserId}}</td>
+    <td><input type="button" class="btn btn-danger" value="X" attr.data-itemid="{{bookHistory.Id}}" (click)="deleteItem($event)" /></td>
+  </tr>
+</table>

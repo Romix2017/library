@@ -59,5 +59,19 @@ namespace Library.Controllers
 
         }
 
+        [HttpDelete]
+        public DtoActionResult<BookHistoryDto> Delete([FromQuery] BookHistoryDto removeItem)
+        {
+            var item = _mapper.Map<BookHistory>(removeItem);
+            var result = _service.Delete(item);
+
+
+            return new DtoActionResult<BookHistoryDto>
+            {
+                DTO = _mapper.Map<BookHistoryDto>(result.Entity),
+                Errors = _mapper.Map<IEnumerable<DtoError>>(result.Errors)
+            };
+        }
+
     }
 }

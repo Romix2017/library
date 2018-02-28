@@ -70,6 +70,7 @@ export class BookEditComponent implements OnInit, OnDestroy {
   onCancel(form: NgForm) {
     form.reset();
     this.isUpdate = false;
+    this.MutableBook = new MutableBook();
   }
 
   createImmutableBook(): Book {

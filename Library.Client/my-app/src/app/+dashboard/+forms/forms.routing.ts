@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsComponent } from "./forms.component";
 import { BookFormComponent } from './Book/book-form.component';
 import { GenreFormComponent } from './Genre/genre-form.component';
+import { BookHistoryFormComponent } from './BookHistory/book-history-form.component';
 
 const routes: Routes = [{
   path: '',
@@ -21,6 +22,11 @@ const routes: Routes = [{
       path: 'books',
       component: BookFormComponent,
       data: { pageTitle: 'Books form' }
+    },
+    {
+      path: 'books-history',
+      component: BookHistoryFormComponent,
+      data: { pageTitle: 'Books History form' }
     }
   ]
 }];

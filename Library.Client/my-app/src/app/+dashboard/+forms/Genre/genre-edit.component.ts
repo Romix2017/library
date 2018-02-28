@@ -66,6 +66,7 @@ export class GenreEditComponent implements OnInit, OnDestroy {
   onCancel(form: NgForm) {
     form.reset();
     this.isUpdate = false;
+    this.MutableGenre = new MutableGenre();
   }
 
   createImmutableItem(): Genre {

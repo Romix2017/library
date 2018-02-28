@@ -1,0 +1,30 @@
+<h3>Book History form</h3>
+<form #bookHistoryForm="ngForm" (ngSubmit)="onSubmit(bookHistoryForm)" class="editForm">
+  <div class="form-group">
+    <div class="form-group">
+      <label for="book">Name</label>
+      <select class="form-control" id="book" [(ngModel)]="MutableBookHistory.BookId" [required]="true" name="book">
+        <option *ngFor="let book of Books" [value]="book.Id">{{book.Name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="date_given">Date given</label>
+      <input type="text" class="form-control" id="date_given" [(ngModel)]="MutableBookHistory.DateGiven" name="date_given" maxlength="20" #date_given="ngModel" [required]="true">
+      <div [hidden]="date_given.valid || date_given.pristine"
+           class="alert alert-danger">
+        Date given is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="date_returned">Date returned</label>
+      <input type="text" class="form-control" id="date_returned" [(ngModel)]="MutableBookHistory.DateReturned" name="date_returned" maxlength="20" #date_returned="ngModel" [required]="true">
+      <div [hidden]="date_returned.valid || date_returned.pristine"
+           class="alert alert-danger">
+        Date returned is required
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="!bookHistoryForm.form.valid" *ngIf="!isUpdate">Submit</button>
+  <button type="button" class="btn btn-success" [disabled]="!bookHistoryForm.form.valid" *ngIf="isUpdate" (click)="onUpdate()">Update</button>
+  <button type="button" class="btn btn-warning" *ngIf="isUpdate" (click)="onCancel(bookHistoryForm)">Cancel</button>
+</form>

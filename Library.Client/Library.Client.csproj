@@ -6,13 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="my-app\src\app\+dashboard\+forms\BookHistory\book-history-edit.component.ts" />
+    <None Remove="my-app\src\app\+dashboard\+forms\BookHistory\book-history-form.component.ts" />
+    <None Remove="my-app\src\app\+dashboard\+forms\BookHistory\book-history.component.ts" />
     <None Remove="my-app\src\app\core\models\book-history.ts" />
     <None Remove="my-app\src\app\core\models\mutable.book-history.ts" />
     <None Remove="my-app\src\app\core\services\book-history.service.ts" />
+    <None Remove="my-app\src\app\core\store\actions\book-history.actions.ts" />
+    <None Remove="my-app\src\app\core\store\reducers\book-history.reducers.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="my-app\src\app\+dashboard\+forms\BookHistory\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -22,9 +26,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\BookHistory\book-history-edit.component.ts" />
+    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\BookHistory\book-history-form.component.ts" />
+    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\BookHistory\book-history.component.ts" />
     <TypeScriptCompile Include="my-app\src\app\core\models\book-history.ts" />
     <TypeScriptCompile Include="my-app\src\app\core\models\mutable.book-history.ts" />
     <TypeScriptCompile Include="my-app\src\app\core\services\book-history.service.ts" />
+    <TypeScriptCompile Include="my-app\src\app\core\store\actions\book-history.actions.ts" />
+    <TypeScriptCompile Include="my-app\src\app\core\store\reducers\book-history.reducers.ts" />
   </ItemGroup>
 
 </Project>
