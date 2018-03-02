@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Library.Authorization;
 using Library.DataProcessing.Contracts.DataServices;
 using Library.DataProcessing.Implementation.Validation;
 using Library.DataTransferObjects.Common;
@@ -12,12 +13,14 @@ using Library.Entities.Extensions;
 using Library.Entities.Filters;
 using Library.Entities.Models;
 using Library.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
     [Produces("application/json")]
     [Route("api/BooksHistory")]
+    [Authorize]
     public class BooksHistoryController : Controller
     {
         private readonly IGenericService<BookHistory> _service;
@@ -58,8 +61,8 @@ namespace Library.Controllers
             }
 
         }
-
-        [HttpDelete]
+        
+        [HttpDelete, Authorize(Policy = Privileges.DeleteHistoryBooks)]
         public DtoActionResult<BookHistoryDto> Delete([FromQuery] BookHistoryDto removeItem)
         {
             var item = _mapper.Map<BookHistory>(removeItem);

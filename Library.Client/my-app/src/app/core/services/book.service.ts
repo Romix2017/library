@@ -9,21 +9,21 @@ import { MutableBook } from '../models/mutable.book';
 import { Repository } from '../repository/repository';
 import { APIGENRES, APIBOOKS } from '../settings/settings';
 
-const SERVER: string = "http://localhost:50167/"
+
 
 @Injectable()
 export class BookService extends Repository<Book> {
 
-  constructor() {
-    super();
+  constructor(http: HttpClient) {
+    super(http);
     this.API = APIBOOKS;
   }
 
-  createUrlParams(item: Book): URLSearchParams {
-    let params = new URLSearchParams();
-    params.append('id', '' + item.Id);
-    params.append('genreid', '' + item.GenreId);
-    params.append('name', '' + item.Name);
+  createUrlParams(item: Book): HttpParams {
+    let params = new HttpParams()
+      .append('id', '' + item.Id)
+      .append('genreid', '' + item.GenreId)
+      .append('name', '' + item.Name);
     return params;
   }
 

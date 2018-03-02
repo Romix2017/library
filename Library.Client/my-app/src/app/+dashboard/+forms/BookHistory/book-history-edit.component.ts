@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewEncapsulation, Injectable } from '@angular/core';
 import { BookService } from '../../../core/services/book.service';
 import { Book } from '../../../core/models/book';
 import { AppStore } from '../../../core/store/store'
@@ -13,10 +13,17 @@ import { BookHistoryService } from '../../../core/services/book-history.service'
 import { BookHistory } from '../../../core/models/book-history';
 import { MutableBookHistory } from '../../../core/models/mutable.book-history';
 import { addBookHistory, updateBookHistory } from '../../../core/store/actions/book-history.actions';
+import { NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateNativeAdapter } from '../../../core/extensions/date-picker.extension';
+
+@Injectable()
+
+
 
 @Component({
   selector: 'book-history-edit-widget',
   templateUrl: './book-history-edit.component.html',
+  providers: [{ provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }]
 })
 export class BookHistoryEditComponent implements OnInit, OnDestroy {
 
@@ -66,7 +73,7 @@ export class BookHistoryEditComponent implements OnInit, OnDestroy {
 
     this._bookHistoryService.updateForItem([this.BookHistory])
       .subscribe(res => {
-        let updatedBookHistory = res.json()[0].dto;
+        let updatedBookHistory = res[0].dto;
 
         console.log(updatedBookHistory);
 
@@ -102,11 +109,11 @@ export class BookHistoryEditComponent implements OnInit, OnDestroy {
 
     this._bookHistoryService.saveItem([this.BookHistory])
       .subscribe(res => {
-        let addedBook = res.json()[0].dto;
+        let addedBook = res[0].dto;
         this.store.dispatch(addBookHistory(new BookHistory(<BookHistory>{
           Id: addedBook.id, BookId: addedBook.bookId,
           DateReturned: addedBook.dateReturned,
-          DateGiven: addedBook.dateReturned,
+          DateGiven: addedBook.dateGiven,
           UserId: null
         })));
         form.reset();

@@ -5,7 +5,7 @@
   </button>
 
   <div class="navbar-collapse" (click)="collapse=true" [hidden]="collapse">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto" *ngIf="authService.isValidTokenPresent()">
       <li class="nav-item">
         <a class="nav-link" routerLink="/dashboard/forms/books" routerLinkActive="active">Books <span class="sr-only">(current)</span></a>
       </li>
@@ -16,5 +16,8 @@
         <a class="nav-link" routerLink="/dashboard/forms/genres" routerLinkActive="active">Genres</a>
       </li>
     </ul>
+    <div class="nav-item float-right logout-div" *ngIf="authService.isValidTokenPresent()">
+      <a class="nav-link" routerLink="/auth/logout" routerLinkActive="active">Logout</a>
+    </div>
   </div>
 </nav>

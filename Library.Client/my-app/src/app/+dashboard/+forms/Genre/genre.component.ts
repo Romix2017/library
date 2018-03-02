@@ -36,7 +36,7 @@ export class GenreComponent implements OnInit {
     let itemToDelete: Genre = this.getItemByEvent(event);
     this._service.deleteItem(itemToDelete, this._service.createUrlParams(itemToDelete)).subscribe(
       res => {
-        let removedItem = res.json().dto;
+        let removedItem = res.dto;
         this.store.dispatch(deleteGenre(new Genre({ Id: removedItem.id, Name: removedItem.name })));
       }, err => {
         console.log("Error retriving Books");

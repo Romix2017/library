@@ -56,7 +56,7 @@ export class GenreEditComponent implements OnInit, OnDestroy {
 
     this._service.updateForItem([this.Genre])
       .subscribe(res => {
-        let updatedItem = res.json()[0].dto;
+        let updatedItem = res[0].dto;
         this.store.dispatch(updateGenre(new Genre({ Id: updatedItem.id, GenreId: updatedItem.genreId, Name: updatedItem.name })));
       }, err => { })
   }
@@ -79,7 +79,7 @@ export class GenreEditComponent implements OnInit, OnDestroy {
 
     this._service.saveItem([this.Genre])
       .subscribe(res => {
-        let addedItem = res.json()[0].dto;
+        let addedItem = res[0].dto;
         this.store.dispatch(addGenre(new Genre({ Id: addedItem.id, Name: addedItem.name })));
         form.reset();
       }, err => { })

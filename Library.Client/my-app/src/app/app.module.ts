@@ -10,7 +10,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { LibraryLayoutModule } from './shared/layout/layout.module';
 import { CoreModule } from './core/core.module';
 import { CommonModule } from '@angular/common';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpModule } from '@angular/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './core/services/interceptor.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -33,15 +36,24 @@ const APP_PROVIDERS = [
     ModalModule.forRoot(),
     LibraryLayoutModule,
     CoreModule,
+    NgbModule.forRoot(),
+    HttpModule,
     routing
   ],
   exports: [
   
   ],
-  providers: [APP_PROVIDERS ]
+  providers: [APP_PROVIDERS, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true} ]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef, public appState: AppState) { }
+  constructor(public appRef: ApplicationRef, public appState: AppState) {
+
+    
+
+  }
 }
 
 

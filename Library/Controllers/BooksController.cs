@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Library.Authorization;
 using Library.DataProcessing.Contracts.DataServices;
 using Library.DataProcessing.Implementation.Validation;
 using Library.DataTransferObjects.Common;
@@ -14,11 +15,14 @@ using Library.Entities.Models;
 using Library.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using IdentityServer4.AccessTokenValidation;
 
 namespace Library.Controllers
 {
     [Produces("application/json")]
     [Route("api/Books")]
+    [Authorize]
     public class BooksController : Controller
     {
         private readonly IGenericService<Book> _service;
@@ -59,20 +63,20 @@ namespace Library.Controllers
 
         }
 
-        [HttpDelete]
+        [HttpDelete, Authorize(Policy = Privileges.DeleteBooks)]
         public DtoActionResult<BookDto> Delete([FromQuery] BookDto removeItem)
         {
 
             var item = _mapper.Map<Book>(removeItem);
             var result = _service.Delete(item);
 
-           
-                return new DtoActionResult<BookDto>
-                {
-                    DTO = _mapper.Map<BookDto>(result.Entity),
-                    Errors = _mapper.Map<IEnumerable<DtoError>>(result.Errors)
-                };
-            
+
+            return new DtoActionResult<BookDto>
+            {
+                DTO = _mapper.Map<BookDto>(result.Entity),
+                Errors = _mapper.Map<IEnumerable<DtoError>>(result.Errors)
+            };
+
 
         }
 

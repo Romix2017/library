@@ -7,20 +7,19 @@ import { Http, URLSearchParams, Headers, RequestOptionsArgs } from '@angular/htt
 import { Repository } from '../repository/repository';
 import { APIGENRES } from '../settings/settings';
 
-//const SERVER: string = "http://localhost:50167/"
 
 @Injectable()
 export class GenreService extends Repository<Genre> {
 
-  constructor() {
-    super();
+  constructor(http: HttpClient) {
+    super(http);
     this.API = APIGENRES
   }
 
-  createUrlParams(item: Genre): URLSearchParams {
-    let params = new URLSearchParams();
-    params.append('id', '' + item.Id);
-    params.append('name', '' + item.Name);
+  createUrlParams(item: Genre): HttpParams {
+    let params = new HttpParams()
+    .append('id', '' + item.Id)
+    .append('name', '' + item.Name);
     return params;
   }
 

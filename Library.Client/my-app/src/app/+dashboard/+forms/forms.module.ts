@@ -13,12 +13,14 @@ import { GenreEditComponent } from './Genre/genre-edit.component';
 import { BookHistoryComponent } from './BookHistory/book-history.component';
 import { BookHistoryEditComponent } from './BookHistory/book-history-edit.component';
 import { BookHistoryFormComponent } from './BookHistory/book-history-form.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     FormsRoutingModule,
     CommonModule,
     FormsModule,
+    NgbModule
   ],
   declarations: [
     BookComponent,

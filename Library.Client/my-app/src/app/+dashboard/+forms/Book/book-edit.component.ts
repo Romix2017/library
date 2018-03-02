@@ -60,7 +60,7 @@ export class BookEditComponent implements OnInit, OnDestroy {
 
     this._bookService.updateForItem([this.Book])
       .subscribe(res => {
-        let updatedBook = res.json()[0].dto;
+        let updatedBook = res[0].dto;
         this.store.dispatch(updateBook(new Book({ Id: updatedBook.id, GenreId: updatedBook.genreId, Name: updatedBook.name })));
       }, err => { })
   }
@@ -83,7 +83,7 @@ export class BookEditComponent implements OnInit, OnDestroy {
 
     this._bookService.saveItem([this.Book])
       .subscribe(res => {
-        let addedBook = res.json()[0].dto;
+        let addedBook = res[0].dto;
         this.store.dispatch(addBook(new Book({ Id: addedBook.id, GenreId: addedBook.genreId, Name: addedBook.name })));
         form.reset();
       }, err => { })

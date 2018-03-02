@@ -1,8 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
+body{
+  margin-bottom:100px;
+}
+
+
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
@@ -51,4 +56,17 @@ tr:nth-child(odd) {
 }
 .editForm {
   width: 350px;
+}
+
+.logout-div a {
+color:white;
+}
+
+.display-inline {display: inline-block}
+
+
+.loginForm {
+width:350px;
+margin-left:auto;
+margin-right:auto;
 }

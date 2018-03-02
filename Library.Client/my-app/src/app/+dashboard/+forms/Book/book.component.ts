@@ -20,6 +20,9 @@ export class BookComponent implements OnInit {
     this._service = service;
     this._service.getAll()
       .subscribe(res => {
+
+        console.log(res + "book component");
+
         let books = (res.data).map((book: any) =>
           new Book({ Id: book.id, GenreId: book.genreId, Name: book.name }));
         store.dispatch(loadBooks(List(books)));
@@ -32,9 +35,12 @@ export class BookComponent implements OnInit {
   deleteItem(event) {
     event.stopPropagation();
     let bookToDelete: Book = this.getItemByEvent(event);
+
+    console.log(this._service.createUrlParams(bookToDelete) + "DELETE ITEM");
+
     this._service.deleteItem(bookToDelete, this._service.createUrlParams(bookToDelete)).subscribe(
       res => {
-        let removedBook = res.json().dto;
+        let removedBook = res.dto;
         this.store.dispatch(deleteBook(new Book({ Id: removedBook.id, GenreId: removedBook.genreId, Name: removedBook.name })));
       }, err => {
         console.log("Error retriving Books");

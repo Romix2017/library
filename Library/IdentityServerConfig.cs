@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace Library
 {
     public class IdentityServerConfig
     {
+
 
         public static IEnumerable<ApiResource> GetApiResources()
         {
@@ -27,3 +29,4 @@ namespace Library
         }
     }
 }
+

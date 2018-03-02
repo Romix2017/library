@@ -17,10 +17,6 @@ namespace Library
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
-            using (var serviceScope = host.Services.CreateScope())
-            {
-                serviceScope.ServiceProvider.GetService<IDataStorageControl>().Init();
-            }
             host.Run();
         }
 

@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookFormComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

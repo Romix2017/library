@@ -47,7 +47,7 @@ export class BookHistoryComponent implements OnInit {
 
     this._service.deleteItem(bookHistoryToDelete, this._service.createUrlParams(bookHistoryToDelete)).subscribe(
       res => {
-        let removedBookHistory = res.json().dto;
+        let removedBookHistory = res.dto;
 
         console.log(removedBookHistory + "removed books");
 

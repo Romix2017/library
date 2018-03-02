@@ -25,8 +25,8 @@ namespace Library.DataStorage.EF
 
         public static IServiceCollection AddEFDataStorage(this IServiceCollection services)
         {
-            services.TryAddTransient(typeof(IRepository<>), typeof(EFRepository<>));
-            services.TryAddTransient<IDataStorageControl, EFStorageControl>();
+            services.TryAddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+            services.TryAddScoped<IDataStorageControl, EFStorageControl>();
             return services;
         }
     }

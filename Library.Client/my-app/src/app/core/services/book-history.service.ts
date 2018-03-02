@@ -10,23 +10,22 @@ import { Repository } from '../repository/repository';
 import { APIBOOKSHISTORY, APIBOOKS } from '../settings/settings';
 import { BookHistory } from '../models/book-history';
 
-const SERVER: string = "http://localhost:50167/"
 
 @Injectable()
 export class BookHistoryService extends Repository<BookHistory> {
 
-  constructor() {
-    super();
+  constructor(http: HttpClient) {
+    super(http);
     this.API = APIBOOKSHISTORY;
   }
 
-  createUrlParams(item: BookHistory): URLSearchParams {
-    let params = new URLSearchParams();
-    params.append('id', '' + item.Id);
-    params.append('bookid', '' + item.BookId);
-    params.append('dategiven', '' + item.DateGiven);
-    params.append('datereturned', '' + item.DateReturned);
-    params.append('userid', '' + item.UserId);
+  createUrlParams(item: BookHistory): HttpParams {
+    let params = new HttpParams()
+      .append('id', '' + item.Id)
+      .append('bookid', '' + item.BookId)
+      .append('dategiven', '' + item.DateGiven)
+      .append('datereturned', '' + item.DateReturned)
+      .append('userid', '' + item.UserId);
     return params;
   }
 

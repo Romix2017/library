@@ -15,7 +15,11 @@ using IdentityServer4.AccessTokenValidation;
 using Library.Entities.Models;
 using Library.Authorization;
 using Library.DataStorage.Contracts;
-
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Authentication;
+using IdentityModel;
 namespace Library
 {
     public class Startup
@@ -35,42 +39,53 @@ namespace Library
                                                                             .AllowAnyMethod()
                                                                             .AllowAnyHeader()
                                                                             .AllowCredentials()));
+
             services.AddLibraryContext(Configuration.GetConnectionString("DefaultConnection"));
             services.AddDataProcessingServices();
 
             services
                 .AddEFDataStorage()
-                .AddAutoMapper()
-                .AddMvc();
+                .AddAutoMapper();
 
             services
-                .AddAuthentication(o =>
-                {
-                    o.DefaultScheme =
-                    o.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+             .AddAuthentication(o =>
+             {
+                 o.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                 o.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+             })
+             .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme, o =>
+             {
+                 o.Authority = Configuration["Tokens:Authority"];
+                 o.ApiName = "api1";
+                 o.SupportedTokens = SupportedTokens.Both;
+                 o.RequireHttpsMetadata = false;
+             });
 
-                })
-                .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme, o =>
+            services.AddAuthorization(options => {
+
+                foreach (var policy in Privileges.GetPrivilegePolicies())
                 {
-                    o.Authority = Configuration["Tokens: Authority"];
-                    o.ApiName = "api1";
-                    o.SupportedTokens = SupportedTokens.Both;
-                    o.RequireHttpsMetadata = false;
-                });
+                    options.AddPolicy(policy.Key, policy.Value);
+                    
+                }
+            });
+
+
+
+            services.AddMvc();
 
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddInMemoryPersistedGrants()
-                .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
-                .AddInMemoryClients(IdentityServerConfig.GetClients())
-                .AddAspNetIdentity<User>()
-                .AddProfileService<UserProfileService>();
-
+           .AddDeveloperSigningCredential()
+           .AddInMemoryPersistedGrants()
+           .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
+           .AddInMemoryClients(IdentityServerConfig.GetClients())
+           .AddAspNetIdentity<User>()
+           .AddProfileService<UserProfileService>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<User> userManager)
         {
             app.UseCors("AllowAll");
 
@@ -78,6 +93,8 @@ namespace Library
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -88,7 +105,7 @@ namespace Library
 
             app.UseIdentityServer();
 
-
+            IdentityDataInitializer.SeedUsers(userManager);
 
             app.UseMvc(routes =>
             {
@@ -97,8 +114,14 @@ namespace Library
                     template: "{controller}/{action=Index}/{id?}");
             });
 
+            // storage manipulations should be scoped
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                serviceScope.ServiceProvider.GetService<IDataStorageControl>().Init();
+            }
 
-          
         }
+
     }
 }

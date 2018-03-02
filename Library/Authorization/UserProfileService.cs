@@ -26,8 +26,12 @@ namespace Library.Authorization
 
             context.IssuedClaims.AddRange(new[]
             {
+                new Claim(Privileges.RoleCodeClaim, Enum.GetName(user.RoleCode.GetType(), user.RoleCode)),
                 new Claim(CustomClaims.UserNameClaim, user.UserName.ToString() ?? default(int).ToString())
-            });
+            }
+             .Concat(Privileges.PrivilegesInRole[user.RoleCode].Select(p =>
+                new Claim(Privileges.PrivilegesClaim, p))));
+            
 
             return Task.CompletedTask;
         }
