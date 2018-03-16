@@ -27,7 +27,7 @@ const APP_PROVIDERS = [
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [
-    AppComponent,
+    AppComponent, 
   ],
   imports: [
     BrowserModule,
@@ -41,7 +41,7 @@ const APP_PROVIDERS = [
     routing
   ],
   exports: [
-  
+  //  CoreModule
   ],
   providers: [APP_PROVIDERS, {
     provide: HTTP_INTERCEPTORS,

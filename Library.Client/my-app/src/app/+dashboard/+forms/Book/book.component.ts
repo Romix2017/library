@@ -4,6 +4,7 @@ import { Book } from '../../../core/models/book';
 import { AppStore } from '../../../core/store/store'
 import { List } from 'immutable';
 import { loadBooks, deleteBook } from '../../../core/store/actions/book.actions';
+import { Privileges } from '../../../core/settings/settings'
 
 @Component({
   selector: 'book-widget',
@@ -14,30 +15,44 @@ export class BookComponent implements OnInit {
   private _service: BookService;
   public Books: List<Book>;
   public BookStore: List<Book>
+  public Privileges: Privileges = new Privileges();
+  private _subscription: any;
+
 
   constructor(service: BookService, public store: AppStore) {
 
     this._service = service;
-    this._service.getAll()
-      .subscribe(res => {
+    this.getAll();
 
-        console.log(res + "book component");
+    this._subscription = service.finderSubject.subscribe((item) => {
+      this.getAll(item);
+    });
 
-        let books = (res.data).map((book: any) =>
-          new Book({ Id: book.id, GenreId: book.genreId, Name: book.name }));
-        store.dispatch(loadBooks(List(books)));
-      }, err => console.log("Error retriving Books"));
 
-    store.subscribe((state: any) => console.log("New state received"));
 
   }
+
+
+  ngOnDestroy() {
+
+    this._subscription.unsubscribe();
+  }
+
+  getAll(filter?: any) {
+    this._service.getAll(filter)
+      .subscribe(res => {
+        let books = (res.data).map((book: any) =>
+          new Book({ Id: book.id, GenreId: book.genreId, Name: book.name, GenreName: book.genreName }));
+        this.store.dispatch(loadBooks(List(books)));
+      }, err => console.log("Error retriving Books"));
+
+  }
+
+
 
   deleteItem(event) {
     event.stopPropagation();
     let bookToDelete: Book = this.getItemByEvent(event);
-
-    console.log(this._service.createUrlParams(bookToDelete) + "DELETE ITEM");
-
     this._service.deleteItem(bookToDelete, this._service.createUrlParams(bookToDelete)).subscribe(
       res => {
         let removedBook = res.dto;
@@ -47,8 +62,10 @@ export class BookComponent implements OnInit {
       });
   }
 
-  updateItem(event) {
 
+
+
+  updateItem(event) {
     this._service.emitItemForUpdate(this.getItemByEvent(event));
   }
 

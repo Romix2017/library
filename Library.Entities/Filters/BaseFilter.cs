@@ -22,8 +22,7 @@ namespace Library.Entities.Filters
             if (IDs != null && IDs.Any()) source = source.Where(e => IDs.Contains(e.Id));
 
             return (
-                source.OptionalSkip(Skip).OptionalTake(Take),
-                new Lazy<int>(() => source.Count()));
+                source.OptionalSkip(Skip).OptionalTake(Take), new Lazy<int>(() => source.Count()));
         }
 
         protected static IQueryable<T> SearchByString(string propertyName, IQueryable<T> source, string filter)
@@ -37,5 +36,20 @@ namespace Library.Entities.Filters
 
             return source;
         }
+
+        protected static IQueryable<T> SearchByStringRelation(string propertyName, IQueryable<T> source, string filter)
+        {
+            if ((propertyName != "" && !string.IsNullOrEmpty(filter)))
+            {
+                var lower = filter.ToLower();
+                source = source.Where(u => (u.GetType().GetProperty(propertyName)
+                    .GetValue(u) ?? "").ToString().ToLower().Contains(lower));
+            }
+
+            return source;
+        }
+
+
+
     }
 }

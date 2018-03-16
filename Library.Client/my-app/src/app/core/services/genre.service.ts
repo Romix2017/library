@@ -13,7 +13,7 @@ export class GenreService extends Repository<Genre> {
 
   constructor(http: HttpClient) {
     super(http);
-    this.API = APIGENRES
+    this.API = APIGENRES;
   }
 
   createUrlParams(item: Genre): HttpParams {

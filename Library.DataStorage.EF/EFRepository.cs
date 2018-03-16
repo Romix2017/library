@@ -8,6 +8,7 @@ using System.Text;
 using System.Linq;
 using System.Linq.Expressions;
 using Library.Entities.Models;
+using AutoMapper;
 
 namespace Library.DataStorage.EF
 {
@@ -135,7 +136,5 @@ namespace Library.DataStorage.EF
             logger.LogError(ex, ex.Message);
             return ex;
         }
-
-
     }
 }

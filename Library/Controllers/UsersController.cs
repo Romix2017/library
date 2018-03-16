@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Library.Authorization;
+using Library.DataProcessing.Contracts.DataServices;
 using Library.DataTransferObjects.Common;
 using Library.DataTransferObjects.Dto;
 using Library.DataTransferObjects.Filters;
@@ -10,73 +12,72 @@ using Library.Entities.Extensions;
 using Library.Entities.Filters;
 using Library.Entities.Models;
 using Library.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
+    [Produces("application/json")]
+    [Route("api/users")]
+    [Authorize]
     public class UsersController : Controller
     {
-        private readonly IMapper mapper;
-        private readonly UserManager<User> userManager;
+        private readonly IGenericService<LibraryUser> _service;
+        private readonly IMapper _mapper;
+        private readonly IQueryable<LibraryUser> _dataSource;
 
-        public UsersController(IMapper mapper, UserManager<User> userManager)
+
+        public UsersController(IGenericService<LibraryUser> service, IMapper mapper)
         {
-            this.mapper = mapper;
-            this.userManager = userManager;
+            this._service = service;
+            this._mapper = mapper;
+            _dataSource = this._service.Get().AsQueryable();
+            var list = _dataSource.ToList();
         }
 
-        [HttpGet]//, Authorize(Policy = Privileges.ViewUsers)]
-        public RecordSet<UserDto> Get([FromQuery] UserFilterDto filterDto)
+
+        public RecordSet<LibraryUserDto> Get([FromQuery] LibraryUserFilterDto filterDto)
         {
-            var filter = mapper.Map<UserFilter>(filterDto);
-            return filter.ToRecordSet<User, UserDto>(userManager.Users, mapper);
+            var filter = _mapper.Map<LibraryUserFilter>(filterDto);
+
+            return filter.ToRecordSet<LibraryUser, LibraryUserDto>(_dataSource, _mapper);
         }
 
-        [HttpPost]//, Authorize(Policy = Privileges.EditUsers)]
-        public IEnumerable<DtoActionResult<UserDto>> Post([FromBody] IEnumerable<UserDto> updates)
+        [HttpPost]
+        public IEnumerable<DtoActionResult<LibraryUserDto>> Post([FromBody] IEnumerable<LibraryUserDto> updates)
         {
-            DtoActionResult<UserDto> IdentityResultToDtoActionResult(IdentityResult result, UserDto dto)
+            var items = _mapper
+                .MapOntoExistingDataSource(updates, _dataSource);
+            var result = items.Select(_service.Post).ToArray();
+
+            foreach (var e in result)
             {
-                return new DtoActionResult<UserDto>
+                yield return new DtoActionResult<LibraryUserDto>
                 {
-                    DTO = dto,
-                    Errors = result.Errors.Select(ierr => new DtoError
-                    {
-                        Code = ierr.Code,
-                        Text = ierr.Description
-                    })
+                    DTO = _mapper.Map<LibraryUserDto>(e.Entity),
+                    Errors = _mapper.Map<IEnumerable<DtoError>>(e.Errors)
                 };
             }
 
-            var entities = mapper.MapOntoExistingDataSource(updates, userManager.Users);
-            Func<User, bool> IsNew = e => e.Id == default(int);
-            foreach (var e in entities.Where(IsNew))
-            {
-                var result = userManager.CreateAsync(e, updates.First(dto => dto.Id == e.Id).Password).Result;
-                yield return IdentityResultToDtoActionResult(result, mapper.Map<UserDto>(e));
-            }
-            foreach (var e in entities.Where(e => !IsNew(e)))
-            {
-                var result = userManager.UpdateAsync(e).Result;
-                yield return IdentityResultToDtoActionResult(result, mapper.Map<UserDto>(e));
-            }
         }
 
-        //[Route("sysadmin"), HttpPost]//, AllowAnonymous]
-        //public IActionResult RegisterDefaultAdmin(
-        //    [FromQuery] string username, [FromQuery] string password)
-        //{
-        //    var result = setupService.CreateAdminAsync(username, password).Result;
-        //    if (result.Succeeded)
-        //    {
-        //        return Ok();
-        //    }
-        //    else
-        //    {
-        //        var errors = result.Errors.Select(error => KeyValuePair.Create(error.Code, error.Description));
-        //        return BadRequest(errors);
-        //    }
-        //}
+
+        [HttpDelete, Authorize(Policy = Privileges.DeleteGenres)]
+        public DtoActionResult<LibraryUserDto> Delete([FromQuery] LibraryUserDto removeItem)
+        {
+
+            var item = _mapper.Map<LibraryUser>(removeItem);
+            var result = _service.Delete(item);
+
+
+            return new DtoActionResult<LibraryUserDto>
+            {
+                DTO = _mapper.Map<LibraryUserDto>(result.Entity),
+                Errors = _mapper.Map<IEnumerable<DtoError>>(result.Errors)
+            };
+
+
+        }
     }
 }

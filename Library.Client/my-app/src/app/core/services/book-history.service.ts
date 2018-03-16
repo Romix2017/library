@@ -25,7 +25,7 @@ export class BookHistoryService extends Repository<BookHistory> {
       .append('bookid', '' + item.BookId)
       .append('dategiven', '' + item.DateGiven)
       .append('datereturned', '' + item.DateReturned)
-      .append('userid', '' + item.UserId);
+      .append('libraryuserid', '' + item.LibraryUserId);
     return params;
   }
 

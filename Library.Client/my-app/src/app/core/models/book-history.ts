@@ -5,7 +5,9 @@ const BOOKHISTORYRECORD = Record({
   BookId: 0,
   DateGiven: "",
   DateReturned: "",
-  UserId: 0
+  LibraryUserId: 0,
+  BookName: "",
+  LibraryUserName: ""
 });
 
 export class BookHistory extends BOOKHISTORYRECORD {
@@ -14,7 +16,9 @@ export class BookHistory extends BOOKHISTORYRECORD {
   BookId: number;
   DateGiven: string;
   DateReturned: string;
-  UserId: number;
+  LibraryUserId: number;
+  BookName: string;
+  LibraryUserName: string;
 
   constructor(props: any) {
     super(props);

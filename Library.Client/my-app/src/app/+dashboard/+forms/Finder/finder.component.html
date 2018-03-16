@@ -1,0 +1,14 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Name" aria-label="Name" [matAutocomplete]="auto" [formControl]="itemCtrl">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let item of filteredItems | async" [value]="item.name" (click)="optionClick($event)">
+        <span>{{ item.name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <input type="button" value="clear filter" class="btn btn-success" (click)="onFilterClear()"/>
+  <br />
+  <br/>
+</form>
+

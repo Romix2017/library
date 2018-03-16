@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Library.Authorization;
 using Library.DataProcessing.Contracts.DataServices;
 using Library.DataProcessing.Implementation.Validation;
@@ -50,13 +51,15 @@ namespace Library.Controllers
         {
             var items = _mapper
                      .MapOntoExistingDataSource(updates, _dataSource);
+            IEnumerable<BookDto> array = _dataSource.UseAsDataSource(_mapper).For<BookDto>();
+
             var result = items.Select(_service.Post).ToArray();
 
             foreach (var e in result)
             {
                 yield return new DtoActionResult<BookDto>
                 {
-                    DTO = _mapper.Map<BookDto>(e.Entity),
+                    DTO = array.FirstOrDefault(x => x.Id == e.Entity.Id),
                     Errors = _mapper.Map<IEnumerable<DtoError>>(e.Errors)
                 };
             }

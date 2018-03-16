@@ -12,6 +12,13 @@ export class Repository<T> implements IRepository<T> {
   private _http: HttpClient;
 
   updateSubject: Subject<any> = new Subject<any>();
+  finderSubject: Subject<any> = new Subject<any>();
+
+
+  emitItemForFinder(item?: any) {
+    this.finderSubject.next(item);
+  }
+
 
   emitItemForUpdate(item: any) {
     this.updateSubject.next(item);
@@ -21,8 +28,8 @@ export class Repository<T> implements IRepository<T> {
     this._http = http;
   }
 
-  getAll(): Observable<any> {
-    return this._http.get(SERVER + this.API);
+  getAll(params?: any): Observable<any> {
+    return this._http.get(SERVER + this.API, { params: params });
   }
   saveItem(newItem: T[]): Observable<any> {
     return this._http.post(SERVER + this.API, newItem);

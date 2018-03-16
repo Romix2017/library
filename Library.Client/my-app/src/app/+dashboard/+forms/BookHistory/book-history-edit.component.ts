@@ -15,6 +15,9 @@ import { MutableBookHistory } from '../../../core/models/mutable.book-history';
 import { addBookHistory, updateBookHistory } from '../../../core/store/actions/book-history.actions';
 import { NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateNativeAdapter } from '../../../core/extensions/date-picker.extension';
+import { User } from '../../../core/models/user';
+import { UserService } from '../../../core/services/user.service';
+import { loadUsers } from '../../../core/store/actions/user.actions';
 
 @Injectable()
 
@@ -34,30 +37,33 @@ export class BookHistoryEditComponent implements OnInit, OnDestroy {
   private _subscription: any;
   public MutableBookHistory: MutableBookHistory = new MutableBookHistory();
   public isUpdate: boolean = false;
-  constructor(service: BookService, private store: AppStore, bookHistoryService: BookHistoryService) {
+  public LibraryUsers: List<User>;
+  private _usersService: UserService;
+
+  constructor(service: BookService, private store: AppStore, bookHistoryService: BookHistoryService, userService: UserService) {
 
     this._subscription = bookHistoryService.updateSubject.subscribe((bookHistory) => {
+
       this.MutableBookHistory = new MutableBookHistory();
       this.MutableBookHistory.Id = bookHistory.Id;
       this.MutableBookHistory.BookId = bookHistory.BookId;
       this.MutableBookHistory.DateGiven = bookHistory.DateGiven;
-      this.MutableBookHistory.DateReturned = bookHistory.DateReturned;
-      this.MutableBookHistory.UserId = bookHistory.UserId;
+
+      if (bookHistory.DateReturned == "0001-01-01T00:00:00") {
+        //this.MutableBookHistory.DateReturned = "";
+      } else {
+        this.MutableBookHistory.DateReturned = bookHistory.DateReturned;
+      }
+    
+
+      this.MutableBookHistory.LibraryUserId = bookHistory.LibraryUserId;
+      this.MutableBookHistory.BookName = bookHistory.BookName;
+      this.MutableBookHistory.LibraryUserName = bookHistory.LibraryUserName;
       this.isUpdate = true;
     });
     this._service = service;
     this._bookHistoryService = bookHistoryService;
-
-    this._service.getAll()
-      .subscribe(res => {
-        let books = (res.data).map((book: any) =>
-          new Book({ Id: book.id, GenreId: book.genreId,  Name: book.name }));
-
-        store.dispatch(loadBooks(List(books)));
-        this.Books = store.getState().books;
-      }, err => console.log("Error retriving Books"));
-
-    store.subscribe((state: any) => console.log("New state received"));
+    this._usersService = userService;
 
   }
 
@@ -68,22 +74,22 @@ export class BookHistoryEditComponent implements OnInit, OnDestroy {
 
 
   onUpdate() {
-
     this.BookHistory = this.createImmutableBookHistory();
-
     this._bookHistoryService.updateForItem([this.BookHistory])
       .subscribe(res => {
         let updatedBookHistory = res[0].dto;
 
-        console.log(updatedBookHistory);
-
         this.store.dispatch(updateBookHistory(new BookHistory(<BookHistory>{
-          Id: updatedBookHistory.id, BookId: updatedBookHistory.bookId,
+          Id: updatedBookHistory.id,
+          BookId: updatedBookHistory.bookId,
           DateGiven: updatedBookHistory.dateGiven,
           DateReturned: updatedBookHistory.dateReturned,
-          UserId: null
+          BookName: updatedBookHistory.bookName,
+          LibraryUserId: updatedBookHistory.libraryUserId,
+          LibraryUserName: updatedBookHistory.libraryUserName
         })));
-      }, err => { })
+      },
+      err => { });
   }
 
 
@@ -95,18 +101,23 @@ export class BookHistoryEditComponent implements OnInit, OnDestroy {
   }
 
   createImmutableBookHistory(): BookHistory {
+
+  
+
     return new BookHistory({
-      Id: this.MutableBookHistory.Id, BookId: this.MutableBookHistory.BookId,
+      Id: this.MutableBookHistory.Id,
+      BookId: this.MutableBookHistory.BookId,
       DateGiven: this.MutableBookHistory.DateGiven,
-      DateReturned: this.MutableBookHistory.DateReturned,
-      UserId: null
+      DateReturned: this.MutableBookHistory.DateReturned == null ? "0001-01-01T00:00:00" : this.MutableBookHistory.DateReturned,
+      LibraryUserId: this.MutableBookHistory.LibraryUserId,
+      BookName: this.MutableBookHistory.BookName,
+      LibraryUserName: this.MutableBookHistory.LibraryUserName
     });
   }
 
   onSubmit(form: NgForm) {
 
     this.BookHistory = this.createImmutableBookHistory();
-
     this._bookHistoryService.saveItem([this.BookHistory])
       .subscribe(res => {
         let addedBook = res[0].dto;
@@ -114,13 +125,34 @@ export class BookHistoryEditComponent implements OnInit, OnDestroy {
           Id: addedBook.id, BookId: addedBook.bookId,
           DateReturned: addedBook.dateReturned,
           DateGiven: addedBook.dateGiven,
-          UserId: null
+          LibraryUserId: addedBook.libraryUserId,
+          BookName: addedBook.bookName,
+          LibraryUserName: addedBook.libraryUserName
         })));
         form.reset();
       }, err => { })
   }
 
   ngOnInit() {
+
+    this._usersService.getAll()
+      .subscribe(res => {
+        let users = (res.data).map((user: any) =>
+          new User({ Id: user.id, Name: user.name, Email: user.email }));
+
+        this.store.dispatch(loadUsers(List(users)));
+        this.LibraryUsers = this.store.getState().users;
+      }, err => console.log("Error retriving users"));
+
+
+    this._service.getAll()
+      .subscribe(res => {
+        let books = (res.data).map((book: any) =>
+          new Book({ Id: book.id, GenreId: book.genreId, Name: book.name }));
+
+        this.store.dispatch(loadBooks(List(books)));
+        this.Books = this.store.getState().books;
+      }, err => console.log("Error retriving Books"));
   }
 
 }

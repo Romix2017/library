@@ -11,8 +11,8 @@ namespace Library.Entities.Models
         public virtual Book Book { get; set; }
         public int BookId { get; set; }
         public DateTime DateGiven { get; set; }
-        public DateTime DateReturned { get; set; }
-        public virtual User User {get;set;}
-        public int? UserId { get; set; }
+        public DateTime? DateReturned { get; set; }
+        public virtual LibraryUser LibraryUser { get; set; }
+        public int? LibraryUserId { get; set; }
     }
 }

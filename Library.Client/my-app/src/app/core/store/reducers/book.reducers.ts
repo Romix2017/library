@@ -22,7 +22,7 @@ export function books(state: List<Book>, action: any) {
         if (index !== index2) {
           return item;
         }
-        return new Book({ Id: action.book.Id, GenreId: action.book.GenreId, Name: action.book.Name });
+        return new Book({ Id: action.book.Id, GenreId: action.book.GenreId, Name: action.book.Name, GenreName: action.book.GenreName });
       });
     default:
       return state;

@@ -7,6 +7,7 @@ import { loadBooks, deleteBook } from '../../../core/store/actions/book.actions'
 import { GenreService } from '../../../core/services/genre.service';
 import { Genre } from '../../../core/models/genre';
 import { loadGenres, deleteGenre } from '../../../core/store/actions/genre.actions';
+import { Privileges } from '../../../core/settings/settings';
 
 @Component({
   selector: 'genre-widget',
@@ -16,20 +17,31 @@ export class GenreComponent implements OnInit {
 
   private _service: GenreService;
   public Genres: List<Genre>;
+  public Privileges: Privileges = new Privileges();
+  private _subscription: any;
 
   constructor(service: GenreService, public store: AppStore) {
 
     this._service = service;
-    this._service.getAll()
-      .subscribe(res => {
-        let items = (res.data).map((item: any) =>
-          new Genre({ Id: item.id,  Name: item.name }));
-        store.dispatch(loadGenres(List(items)));
-      }, err => console.log("Error retriving Genres"));
+    this._service.getAll();
 
-    //store.subscribe((state: any) => console.log("New state received"));
+    this._subscription = service.finderSubject.subscribe((item) => {
+      this.getAll(item);
+    });
 
   }
+
+
+  getAll(filter?:any) {
+    this._service.getAll(filter)
+      .subscribe(res => {
+        let items = (res.data).map((item: any) =>
+          new Genre({ Id: item.id, Name: item.name }));
+        this.store.dispatch(loadGenres(List(items)));
+      }, err => console.log("Error retriving Genres"));
+  }
+
+
 
   deleteItem(event) {
     event.stopPropagation();
@@ -56,6 +68,11 @@ export class GenreComponent implements OnInit {
     return Items.get(0);
   }
 
+
+  ngOnDestroy() {
+
+    this._subscription.unsubscribe();
+  }
 
   ngOnInit() {
   }

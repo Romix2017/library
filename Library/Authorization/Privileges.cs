@@ -13,13 +13,12 @@ namespace Library.Authorization
         public const string
            RoleCodeClaim = "rolecode",
            PrivilegesClaim = "privileges",
-
            ViewBooks = "ViewBooksPrivilege",
            ViewHistoryBooks = "ViewHistoryBooksPrivilege",
            ViewGenres = "ViewGenres",
-            DeleteBooks = "DeleteBookPrivilege",
-            DeleteGenres = "DeleteGenresPrivilege",
-            DeleteHistoryBooks = "DeleteHistoryBookPrivilege";
+           DeleteBooks = "DeleteBookPrivilege",
+           DeleteGenres = "DeleteGenresPrivilege",
+           DeleteHistoryBooks = "DeleteHistoryBookPrivilege";
 
 
         static Privileges()

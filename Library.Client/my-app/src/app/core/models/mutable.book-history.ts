@@ -3,5 +3,7 @@ export class MutableBookHistory {
   BookId: number;
   DateGiven: string;
   DateReturned: string;
-  UserId: number;
+  LibraryUserId: number;
+  BookName: string;
+  LibraryUserName: string;
 }

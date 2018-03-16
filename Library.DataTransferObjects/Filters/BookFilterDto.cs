@@ -6,5 +6,6 @@ namespace Library.DataTransferObjects.Filters
 {
     public class BookFilterDto : BaseFilterDto
     {
+        public string Name { get; set; }
     }
 }

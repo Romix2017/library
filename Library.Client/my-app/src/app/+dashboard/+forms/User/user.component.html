@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th [checkPrivileges]="[Privileges.DeleteGenres]">Remove</th>
+  </tr>
+  <tr *ngFor="let item of store.getState().users; let i = index" (click)="updateItem($event)" attr.data-itemid="{{item.Id}}">
+    <td>{{i + 1}}</td>
+    <td>{{item.Name}}</td>
+    <td>{{item.Email}}</td>
+    <td [checkPrivileges]="[Privileges.DeleteGenres]"><input type="button" class="btn btn-danger" value="X" attr.data-itemid="{{item.Id}}" (click)="deleteItem($event)" /></td>
+  </tr>
+</table>

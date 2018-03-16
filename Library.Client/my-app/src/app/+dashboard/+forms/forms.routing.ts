@@ -4,6 +4,7 @@ import { FormsComponent } from "./forms.component";
 import { BookFormComponent } from './Book/book-form.component';
 import { GenreFormComponent } from './Genre/genre-form.component';
 import { BookHistoryFormComponent } from './BookHistory/book-history-form.component';
+import { UserFormComponent } from './User/user-form.component';
 
 const routes: Routes = [{
   path: '',
@@ -27,6 +28,11 @@ const routes: Routes = [{
       path: 'books-history',
       component: BookHistoryFormComponent,
       data: { pageTitle: 'Books History form' }
+    },
+    {
+      path: 'users',
+      component: UserFormComponent,
+      data: { pageTitle: 'Users form' }
     }
   ]
 }];

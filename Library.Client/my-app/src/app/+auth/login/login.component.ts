@@ -35,14 +35,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-
     this._authService.login(this.authModel)
       .subscribe(res => {
-        this._authService.setToken(res.access_token)
+        this._authService.setToken(res.access_token);
         this.router.navigateByUrl('dashboard');
       }, err => {
-        this.errorText = err.error_description;
+        this.errorText = err.error.error_description;
         this.isShowError = true;
-      })
+      });
   }
 }

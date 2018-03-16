@@ -1,16 +1,22 @@
 <h3>Book History form</h3>
 <form #bookHistoryForm="ngForm" (ngSubmit)="onSubmit(bookHistoryForm)" class="editForm">
   <div class="form-group">
-    <label for="book">Name</label>
+    <label for="book">Book Name</label>
     <select class="form-control" id="book" [(ngModel)]="MutableBookHistory.BookId" [required]="true" name="book">
       <option *ngFor="let book of Books" [value]="book.Id">{{book.Name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="power">User Name</label>
+    <select class="form-control" id="genre" [(ngModel)]="MutableBookHistory.LibraryUserId" [required]="true" name="genre">
+      <option *ngFor="let user of LibraryUsers" [value]="user.Id">{{user.Name}}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="date_given">Date given</label>
     <div class="input-group">
       <input class="form-control"
-             name="date_given" [(ngModel)]="MutableBookHistory.DateGiven" ngbDatepicker #date_given="ngbDatepicker" maxlength="20">
+             name="date_given" [(ngModel)]="MutableBookHistory.DateGiven" ngbDatepicker #date_given="ngbDatepicker" maxlength="20" [required]="true">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" (click)="date_given.toggle()" type="button">
           <img src="../../../../assets/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
@@ -26,7 +32,7 @@
     <label for="date_returned">Date returned</label>
     <div class="input-group">
       <input class="form-control"
-             name="date_returned" [(ngModel)]="MutableBookHistory.DateReturned" ngbDatepicker #date_returned="ngbDatepicker" maxlength="20" [required]="true">
+             name="date_returned" [(ngModel)]="MutableBookHistory.DateReturned" ngbDatepicker #date_returned="ngbDatepicker" maxlength="20">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" (click)="date_returned.toggle()" type="button">
           <img src="../../../../assets/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
@@ -34,10 +40,11 @@
       </div>
     </div>
     <!--<div [hidden]="date_returned.valid || date_returned.pristine"
-         class="alert alert-danger">
+             class="alert alert-danger">
       Date returned is required
     </div>-->
   </div>
+ 
   <button type="submit" class="btn btn-success" [disabled]="!bookHistoryForm.form.valid" *ngIf="!isUpdate">Submit</button>
   <button type="button" class="btn btn-success" [disabled]="!bookHistoryForm.form.valid" *ngIf="isUpdate" (click)="onUpdate()">Update</button>
   <button type="button" class="btn btn-warning" *ngIf="isUpdate" (click)="onCancel(bookHistoryForm)">Cancel</button>

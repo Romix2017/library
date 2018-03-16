@@ -15,6 +15,13 @@ namespace Library.Entities.Extensions
         public static RecordSet<TDto> ToRecordSet<TEntity, TDto>(this BaseFilter<TEntity> filter, IQueryable<TEntity> source, IMapper mapper) where TEntity : IBaseEntity
         {
             var (items, total) = filter.ApplyTo(source);
+
+            var items2 = items.ToList();
+
+
+            IEnumerable<TDto> items3 = items.UseAsDataSource(mapper).For<TDto>();
+
+
             return new RecordSet<TDto>
             {
                 Data = items.UseAsDataSource(mapper).For<TDto>(),

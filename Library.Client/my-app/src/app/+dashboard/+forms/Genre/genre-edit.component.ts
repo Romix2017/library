@@ -33,14 +33,14 @@ export class GenreEditComponent implements OnInit, OnDestroy {
     });
   
 
-    this._service.getAll()
-      .subscribe(res => {
-        let genres = (res.data).map((genre: any) =>
-          new Genre({ Id: genre.id, Name: genre.name }));
-        store.dispatch(loadGenres(List(genres)));
-      }, err => console.log("Error retriving Genres"));
+    //this._service.getAll()
+    //  .subscribe(res => {
+    //    let genres = (res.data).map((genre: any) =>
+    //      new Genre({ Id: genre.id, Name: genre.name }));
+    //    store.dispatch(loadGenres(List(genres)));
+    //  }, err => console.log("Error retriving Genres"));
 
-    store.subscribe((state: any) => console.log("New state received"));
+    //store.subscribe((state: any) => console.log("New state received"));
 
   }
 

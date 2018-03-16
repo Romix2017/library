@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Library.Authorization;
 using Library.DataProcessing.Contracts.DataServices;
 using Library.DataProcessing.Implementation.Validation;
@@ -47,20 +48,25 @@ namespace Library.Controllers
         [HttpPost]
         public IEnumerable<DtoActionResult<BookHistoryDto>> Post([FromBody] IEnumerable<BookHistoryDto> updates)
         {
+
             var items = _mapper
-                     .MapOntoExistingDataSource(updates, _dataSource);
+                     .MapOntoExistingDataSource(updates, _dataSource).AsQueryable();
+
+            IEnumerable<BookHistoryDto> array = _dataSource.UseAsDataSource(_mapper).For<BookHistoryDto>();
+
             var result = items.Select(_service.Post).ToArray();
 
             foreach (var e in result)
             {
                 yield return new DtoActionResult<BookHistoryDto>
                 {
-                    DTO = _mapper.Map<BookHistoryDto>(e.Entity),
+                    DTO = array.FirstOrDefault(x => x.Id == e.Entity.Id), //_mapper.Map<BookHistoryDto>(e.Entity),
                     Errors = _mapper.Map<IEnumerable<DtoError>>(e.Errors)
                 };
             }
 
         }
+
         
         [HttpDelete, Authorize(Policy = Privileges.DeleteHistoryBooks)]
         public DtoActionResult<BookHistoryDto> Delete([FromQuery] BookHistoryDto removeItem)

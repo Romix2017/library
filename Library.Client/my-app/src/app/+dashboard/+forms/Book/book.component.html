@@ -3,12 +3,12 @@
     <th>#</th>
     <th>Genre</th>
     <th>Name</th>
-    <th>Remove</th>
+    <th  [checkPrivileges]="[Privileges.DeleteBooks]">Remove</th>
   </tr>
   <tr *ngFor="let book of store.getState().books; let i = index" (click)="updateItem($event)" attr.data-itemid="{{book.Id}}">
     <td>{{i + 1}}</td>
-    <td>{{book.GenreId}}</td>
+    <td>{{book.GenreName}}</td>
     <td>{{book.Name}}</td>
-    <td><input type="button" class="btn btn-danger" value="X" attr.data-itemid="{{book.Id}}" (click)="deleteItem($event)" /></td>
+    <td  [checkPrivileges]="[Privileges.DeleteBooks]"><input type="button" class="btn btn-danger" value="X" attr.data-itemid="{{book.Id}}" (click)="deleteItem($event)" /></td>
   </tr>
 </table>

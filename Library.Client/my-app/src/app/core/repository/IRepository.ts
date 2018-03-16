@@ -6,5 +6,7 @@ export interface IRepository<T> {
   saveItem(newItem: T[]): Observable<any>
   updateForItem(updatedItem: T[]): Observable<any>
   deleteItem(deleteItem: T, params: URLSearchParams): Observable<any> 
+  emitItemForUpdate(item: any)
+  emitItemForFinder(item?: any)
 
 }

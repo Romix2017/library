@@ -6,5 +6,6 @@ namespace Library.DataTransferObjects.Filters
 {
     public class BookHistoryFilterDto: BaseFilterDto
     {
+        public string Name { get; set; }
     }
 }

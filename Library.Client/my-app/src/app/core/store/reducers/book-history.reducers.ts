@@ -27,7 +27,9 @@ export function booksHistory(state: List<BookHistory>, action: any) {
           Id: action.bookHistory.Id, BookId: action.bookHistory.BookId,
           DateGiven: action.bookHistory.DateGiven,
           DateReturned: action.bookHistory.DateReturned,
-          UserId: null
+          BookName: action.bookHistory.BookName,
+          LibraryUserId: action.bookHistory.LibraryUserId,
+          LibraryUserName: action.bookHistory.LibraryUserName
         });
       });
     default:

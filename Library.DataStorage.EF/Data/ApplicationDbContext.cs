@@ -16,7 +16,9 @@ namespace Library.DataStorage.EF.Data
 
         private const int
             MAXBOOKLEN = 100,
-            MAXGENRELEN = 100;
+            MAXGENRELEN = 100,
+            MAXEMAILLENGTH = 100,
+            MAXNAMELENGTH = 100;
 
         private const string
                DATETIME2 = "datetime2";
@@ -42,9 +44,17 @@ namespace Library.DataStorage.EF.Data
             {
                 entity.HasKey(e => e.Id);
                 entity.HasOne(e => e.Book);
-                entity.HasOne(e => e.User);
+                entity.HasOne(e => e.LibraryUser);
                 entity.Property(e => e.DateGiven).HasColumnType(DATETIME2);
                 entity.Property(e => e.DateReturned).HasColumnType(DATETIME2);
+            });
+
+
+            builder.Entity<LibraryUser>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).HasMaxLength(MAXNAMELENGTH);
+                entity.Property(e => e.Email).HasMaxLength(MAXEMAILLENGTH);
             });
 
         }

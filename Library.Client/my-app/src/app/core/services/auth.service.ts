@@ -41,8 +41,6 @@ export class AuthService  {
     //headers.append('Content-Type', 'application/x-www-form-urlencoded');
     let requestBody: HttpParams = this.createUrlParams(authCredentials.userName, authCredentials.password);
 
-    console.log(requestBody);
-
     return this.http.post(SERVER + API, requestBody);//.map(res => res.json());
 
   }

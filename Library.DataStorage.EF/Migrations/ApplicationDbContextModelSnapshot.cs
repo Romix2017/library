@@ -48,16 +48,16 @@ namespace Library.DataStorage.EF.Migrations
                     b.Property<DateTime>("DateGiven")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateReturned")
+                    b.Property<DateTime?>("DateReturned")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId");
+                    b.Property<int?>("LibraryUserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("LibraryUserId");
 
                     b.ToTable("BookHistory");
                 });
@@ -73,6 +73,22 @@ namespace Library.DataStorage.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genre");
+                });
+
+            modelBuilder.Entity("Library.Entities.Models.LibraryUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LibraryUser");
                 });
 
             modelBuilder.Entity("Library.Entities.Models.Role", b =>
@@ -252,9 +268,9 @@ namespace Library.DataStorage.EF.Migrations
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Library.Entities.Models.User", "User")
+                    b.HasOne("Library.Entities.Models.LibraryUser", "LibraryUser")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("LibraryUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

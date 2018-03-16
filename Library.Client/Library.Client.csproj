@@ -21,6 +21,19 @@
     <None Remove="my-app\src\app\+dashboard\+forms\BookHistory\book-history-edit.component.ts" />
     <None Remove="my-app\src\app\+dashboard\+forms\BookHistory\book-history-form.component.ts" />
     <None Remove="my-app\src\app\+dashboard\+forms\BookHistory\book-history.component.ts" />
+    <None Remove="my-app\src\app\+dashboard\+forms\Book\finder.component.ts" />
+    <None Remove="my-app\src\app\+dashboard\+forms\User\user-edit.component.ts" />
+    <None Remove="my-app\src\app\+dashboard\+forms\User\user-form.component.ts" />
+    <None Remove="my-app\src\app\+dashboard\+forms\User\user.component.ts" />
+    <None Remove="my-app\src\app\core\models\mutable.user.ts" />
+    <None Remove="my-app\src\app\core\models\user.ts" />
+    <None Remove="my-app\src\app\core\pipe\date.pipe.ts" />
+    <None Remove="my-app\src\app\core\pipe\time.pipe.ts" />
+    <None Remove="my-app\src\app\core\services\user.service.ts" />
+    <None Remove="my-app\src\app\core\store\actions\user.actions.ts" />
+    <None Remove="my-app\src\app\core\store\reducers\user.reducer.ts" />
+    <None Remove="my-app\src\app\shared\directives\blur-forwarder.ts" />
+    <None Remove="my-app\src\app\shared\directives\checkPriviliges.ts" />
     <None Remove="my-app\src\app\core\extensions\date-picker.extension.ts" />
     <None Remove="my-app\src\app\core\interfaces\interface.auth.service.ts" />
     <None Remove="my-app\src\app\core\models\auth.ts" />
@@ -32,6 +45,7 @@
     <None Remove="my-app\src\app\core\services\interceptor.service.ts" />
     <None Remove="my-app\src\app\core\store\actions\book-history.actions.ts" />
     <None Remove="my-app\src\app\core\store\reducers\book-history.reducers.ts" />
+    <None Remove="my-app\src\app\shared\directives\directives.module.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +62,19 @@
     <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\BookHistory\book-history-edit.component.ts" />
     <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\BookHistory\book-history-form.component.ts" />
     <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\BookHistory\book-history.component.ts" />
+    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\Finder\finder.component.ts" />
+    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\User\user.component.ts" />
+    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\User\user-edit.component.ts" />
+    <TypeScriptCompile Include="my-app\src\app\+dashboard\+forms\User\user-form.component.ts" />
+    <TypeScriptCompile Include="my-app\src\app\core\models\mutable.user.ts" />
+    <TypeScriptCompile Include="my-app\src\app\core\models\user.ts" />
+    <TypeScriptCompile Include="my-app\src\app\core\pipe\date.pipe.ts" />
+    <TypeScriptCompile Include="my-app\src\app\core\pipe\time.pipe.ts" />
+    <TypeScriptCompile Include="my-app\src\app\core\services\user.service.ts" />
+    <TypeScriptCompile Include="my-app\src\app\core\store\actions\user.actions.ts" />
+    <TypeScriptCompile Include="my-app\src\app\core\store\reducers\user.reducer.ts" />
+    <TypeScriptCompile Include="my-app\src\app\shared\directives\blur-forwarder.ts" />
+    <TypeScriptCompile Include="my-app\src\app\shared\directives\checkPriviliges.ts" />
     <TypeScriptCompile Include="my-app\src\app\core\extensions\date-picker.extension.ts" />
     <TypeScriptCompile Include="my-app\src\app\core\interfaces\interface.auth.service.ts" />
     <TypeScriptCompile Include="my-app\src\app\core\models\auth.ts" />
@@ -59,6 +86,7 @@
     <TypeScriptCompile Include="my-app\src\app\core\services\interceptor.service.ts" />
     <TypeScriptCompile Include="my-app\src\app\core\store\actions\book-history.actions.ts" />
     <TypeScriptCompile Include="my-app\src\app\core\store\reducers\book-history.reducers.ts" />
+    <TypeScriptCompile Include="my-app\src\app\shared\directives\directives.module.ts" />
   </ItemGroup>
 
 </Project>
